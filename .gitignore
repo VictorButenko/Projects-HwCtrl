@@ -4,3 +4,6 @@
 *.jar
 *.war
 *.ear
+
+#Some confidential files #
+glassfish-resources.xml
