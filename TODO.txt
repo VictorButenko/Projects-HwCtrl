@@ -1,0 +1,20 @@
+
+Сохранение Сервера. В зависимости от MM.
+  - Serial перенести в физическую embeded часть! !!!! !! 
+
+
+- servers/infrastructure.xhtml Not Found in ExternalContext as a Resource  = с директориями разобраться
+- удаление проверять. много пользователей проверить, иногда ошибки.
+
+ВОПРОСЫ :
+1) Откуда поле "Status" берется ?? Его пока ни в одной из наших таблиц нет. Куда пихать ?? 
+   в AbstractServer  ??? 
+
+
+<< Смотри файл Issues !!!!!! >>
+
+
+- ИЗ РЭДМАЙНДА подтягивать данные. обдуматЬ, как это делать в принципе. Несколько вариантов может быть.
+10) Log in / Log out  attach. (I have a trivial realization).
+11) LDAP ? HARDWARE ? to be continious...
+
