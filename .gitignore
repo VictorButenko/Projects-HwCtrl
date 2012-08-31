@@ -5,5 +5,5 @@
 *.war
 *.ear
 
-#Some confedential files #
+#Some confidential files #
 glassfish-resources.xml
