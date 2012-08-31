@@ -1,0 +1,62 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html">
+
+    <body>
+        <ui:composition template="./maintemplate.xhtml">
+            <ui:define name="top">
+                <h2>Create a new Partner</h2>
+            </ui:define>
+
+            <ui:define name="content">
+                <h:form >
+                    <p:growl  sticky="false" life="5000"  showDetail="true"/>
+                    <p:panel header="New Partner">
+                        <h:panelGrid columns="2" columnClasses="label, value" styleClass="grid" >
+
+                            <h:outputText value="First Name"/>
+                            <p:inputText id="firstNamePartner" value="#{partnerBean.partner.firstName}" label="firstNamePartner"
+                                        requiredMessage="First Name is required!" required="true"
+                                         validatorMessage="Use only letters (en | ru) for FirstName [1,20], without white spaces !">
+                                <f:validateRegex pattern="^[a-zA-Zа-яА-Я]{1,20}$"/>
+                            </p:inputText>
+
+                            <h:outputText value="Last Name"/>
+                            <p:inputText id ="lastNamePartner" value="#{partnerBean.partner.lastName}" label="lastNamePartner" 
+                                          requiredMessage="Last Name is required!" required="true"
+                                          validatorMessage="Use only letters (en | ru) for LastName [1,20]" >
+                                <f:validateRegex pattern="^[a-zA-Zа-яА-Я]{1,20}$"/>
+                            </p:inputText>
+
+                            <h:outputText value="Position"/>
+                            <p:inputText id ="positionPartner" value="#{partnerBean.partner.position}" label="positionPartner"
+                                          requiredMessage="Position is required" required="true"/>
+
+                            <h:outputText value="Company"/>
+                            <p:inputText id="companyPartner" value="#{partnerBean.partner.company}" label="companyPartner"
+                                          requiredMessage="Department is required" required="true"/>
+
+                            <h:outputText value="E-mail"/>
+                            <p:inputText id ="emailPartner" value="#{partnerBean.partner.email}" label="emailPartner"  
+                                          requiredMessage="Email is required" required="true" />
+
+                            <h:outputText value="Phone"/>
+                            <p:inputMask id ="phonePartner" value="#{partnerBean.partner.phoneNumber}" label="phonePartner" 
+                                          requiredMessage="Phone Number is required!" required="true"
+                                          mask="(999) 999-9999" />
+
+                            <f:facet name="footer">  
+                                <p:commandButton  value="Save" action="#{partnerBean.saveRecord()}"  ajax="false" icon="ui-icon-disk" />  
+                            </f:facet>  
+                        </h:panelGrid>
+                    </p:panel>
+                </h:form>
+            </ui:define>
+        </ui:composition>
+
+    </body>
+</html>

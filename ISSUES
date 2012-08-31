@@ -1,0 +1,30 @@
+Противные вопросы:
+1) - Отремонтировать сортировку. Что - то вообще не понятно с этим.
+2 -- Кнопки Edit.  - In-Cell Editing Использовать для Edit. кнопки. 
+3) - После удачного создания Edit'ов перенести создание новых Person'ов в окна Dialog.
+
+
+
+
+
+-------------------------------------------------------------------------------------------
+Несколько исключений, которые НУ НЕ ПОЛУЧАЕТСЯ у меня поймать, 
+но в тоже самое время они "вроде" не мешают. 
+1 - Когда с уже существующим email/erid добавляешьь поле, вылетают;
+2 - Когда удаляешь Person(worker, partner, leadtc), которого нельзя удалять, т.к. он используется в другой табл.
+
+ПРИДУМАЛ! 
+if - ДА, эксепшены - нет !
+
+
+1) Create of second Worker failed. Please check transaction management
+Solved
+
+2) Redirect or Forward ??
+    If you will use FORWARD - the pages will be loading faster. But there won't be showed the page where you are and you won't be able to copy it to send smb.
+    In my opinion, in the most cases it's more convinient to use REDIRECT.
+Solved. Redirect. 
+
+http://stackoverflow.com/questions/8072311/illegalstateexception-cannot-create-a-session-after-the-response-has-been-commi
+
+Есть проблема. Куча странных ошибок в логах. Хотя  с виду все работает. Желающие помочь пофиксить - милости просим :)  <------ Вроде сделано(09.07.2012)

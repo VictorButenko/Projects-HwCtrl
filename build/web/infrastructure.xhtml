@@ -1,0 +1,105 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core">
+
+
+    <body>
+        <ui:composition template="./maintemplate.xhtml">
+            <ui:define name="content">
+                <h:form id="mainForm">
+
+                    <h:panelGrid columns="1" style="width: 100%" border="0">
+                        <!--The tabs -->
+                        <p:tabView >  
+                            <!-- Tab for HW creating -->
+                            <p:tab title="Hard Ware">
+                                <p:growl  sticky="false" life="5000"  showDetail="true" id="hwGrowl"/>
+                                
+                                <h:panelGrid columns="1" >
+                                    <!-- Panel with Buttons-->
+                                    <p:panel >
+                                        <p:commandButton value="Create" action="#{serverBean.createRecord()}"/>
+                                        <p:commandButton id="moveHwButton" value="Move" onclick="moveDialog.show()" />
+                                        <p:commandButton id="editHwButton" value="View/Change" />
+                                    </p:panel>
+                                    
+                                    <p:dataTable id="servers" value="#{serverBean.physicalServers}" var="serverTab">
+                                       
+                                        <p:column id="NameHeader">
+                                            <f:facet name="header">Name</f:facet>
+                                            <h:outputText value="#{serverTab.name}"/>
+                                        </p:column>
+                                        
+                                        <p:column id="RackHeader">
+                                            <f:facet name="header">Rack</f:facet>
+                                            <h:outputText value="#{serverTab.physicalServer.rack}"/>
+                                        </p:column>
+                                        
+                                        <p:column id="StartUnitHeader">
+                                            <f:facet name="header">Start Unit</f:facet>
+                                            <h:outputText value="#{serverTab.physicalServer.startUnit}"/>
+                                        </p:column>
+                                        
+                                        <p:column id="MmIpHeader">
+                                            <f:facet name="header">MM IPaddr</f:facet>
+                                            <h:outputText value="#{serverTab.mgmtIP.ipaddr}"/>
+                                        </p:column>
+                                        
+                                        <p:column id="HwStatusHeader">
+                                            <f:facet name="header">Status</f:facet>
+                                            <h:outputText value="Who am I ??"/>
+                                        </p:column>
+                                        
+                                    </p:dataTable>
+
+                                </h:panelGrid>
+                            </p:tab>
+
+                        </p:tabView>
+                    </h:panelGrid>
+                </h:form>
+                
+                <!-- Dialog window for moving Server to another place-->
+                <p:dialog header="Move the server to another place" resizable="false"
+                          id="moveDialogId" widgetVar="moveDialog"  closable="false">
+                    <h:form id="dialogMoveFormId">
+
+                        <h:panelGrid columns="2" style="margin-bottom:10px">
+
+                            <h:outputText value="Room"/>
+                            <p:selectOneMenu id="RoomId" effect="fade" editable="true">
+                                <f:selectItem itemLabel="Select One" itemValue=""/>
+                                <f:selectItem itemLabel="201" itemValue="201"/>
+                                <f:selectItem itemLabel="202" itemValue="202"/>
+                                <f:selectItem itemLabel="209" itemValue="209"/>
+                                <f:selectItem itemLabel="WareHouse" itemValue="WareHouse"/>
+                                <f:selectItem itemLabel="Serag" itemValue="Serag"/>
+                            </p:selectOneMenu>
+
+                            <h:outputText value="Rack"/>
+                            <p:inputText id="serverRack" value="Fix"/>
+
+                            <h:outputText value="Start Unit"/>
+                            <p:inputMask mask="99" />
+
+                            <h:outputText value="End Unit"/>
+                            <p:inputMask mask="99" />
+
+                            <p:commandButton id="moveServer" value="Move" icon="ui-icon-seek-next" 
+                                             oncomplete="moveDialog.hide()" />
+                            <p:commandButton id="declineMoving" value="Cancel" icon="ui-icon-cancel"
+                                             onclick="moveDialog.hide()" type="button"/>
+
+                        </h:panelGrid>
+                    </h:form>
+                </p:dialog>
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</html>
