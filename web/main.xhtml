@@ -1,0 +1,264 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core">
+
+    <!--The jsf page for showing the main information with erids -->
+    <h:body>
+        <ui:composition template="./maintemplate.xhtml">
+            <ui:define name="content">
+                <h:form id="mainForm">
+
+                    <h:panelGrid columns="1" style="width: 100%" border="0">
+                        <!--The tabs -->
+                        <p:tabView >  
+                            <p:tab title="ERID">
+                                <p:growl  sticky="false" life="5000"  showDetail="true" id="eridGrowl"/>
+                                <h:panelGrid columns="1">
+                                    <!-- Panel with Buttons-->
+                                    <p:panel>
+                                        <p:commandButton value="Create" action="#{eridBean.createRecord()}"/>
+                                        <p:commandButton id="editEridButton" value="Edit" />
+                                        <p:commandButton id="deleteEridButton" value="Delete" disabled="true" />
+                                    </p:panel>
+                                    <!-- the table for ERID From DateBase-->
+                                    <p:dataTable id="erids" var="eridTab" value="#{eridBean.erids}" rowKey="#{eridTab.erid}"
+                                                 selection="#{eridBean.erid}" selectionMode="single">
+
+                                        <p:column id="eridHeader" sortBy="#{eridTab.erid}" headerText="ERID">#{eridTab.erid}
+                                        </p:column>
+
+                                        <p:column id="codeNameHeader" sortBy="#{eridTab.codeName}" headerText="Code name">#{eridTab.codeName}
+                                        </p:column>
+
+                                        <p:column id="descrHeadr" sortBy="#{eridTab.description}" headerText="Description">#{eridTab.description}
+                                        </p:column>
+
+                                        <p:column id="statusHeader" sortBy="#{eridTab.status}" headerText="Status">#{eridTab.status}
+                                        </p:column>
+
+                                        <p:column id="startPlanHeader" sortBy="#{eridTab.startPlannedDate}"
+                                                  headerText="Start Plan">
+                                            <h:outputText value="#{eridTab.startPlannedDate}" >
+                                                <f:convertDateTime type="date" dateStyle="short"/>
+                                            </h:outputText>
+                                        </p:column>
+
+                                        <p:column id="finishPlanHeader" sortBy="#{eridTab.finishPlannedDate}"
+                                                  headerText="Finish Plan">
+                                            <h:outputText value="#{eridTab.finishPlannedDate}">
+                                                <f:convertDateTime type="date" dateStyle="short"/>
+                                            </h:outputText>
+                                        </p:column>
+
+                                        <p:column id="startFactHeader" sortBy="#{eridTab.startFactDate}"
+                                                  headerText="Start Fact">
+                                            <h:outputText value="#{eridTab.startFactDate}">
+                                                <f:convertDateTime type="date" dateStyle="short"/>
+                                            </h:outputText>
+                                        </p:column>
+
+                                        <p:column id="finishFactHeader" sortBy="#{eridTab.finishFactDate}"
+                                                  headerText="Finish Fact">
+                                            <h:outputText value="#{eridTab.finishFactDate}">
+                                                <f:convertDateTime type="date" dateStyle="short"/>
+                                            </h:outputText>
+                                        </p:column>
+
+                                        <p:column id="partnersHeader" sortBy="#{eridTab.partner.lastName}"
+                                                  headerText="Partner">
+                                            <h:outputText value="#{eridTab.partner.lastName} #{eridTab.partner.firstName} "/>
+                                        </p:column>
+
+                                        <p:column id="workersHeader" sortBy="#{eridTab.worker.lastName}"
+                                                  headerText="Worker">
+                                            <h:outputText value="#{eridTab.worker.lastName} #{eridTab.worker.firstName}" />
+                                        </p:column>
+
+                                        <p:column id="siebelHeader">
+                                            <f:facet name="header">Siebel</f:facet>
+                                            <h:outputText value="Нет меня пока !!"/>
+                                        </p:column>
+
+                                        <p:column id="leadtcHeader" sortBy="#{eridTab.leadTc.lastName}"
+                                                  headerText="LEAD TC">
+                                            <h:outputText value="#{eridTab.leadTc.lastName} #{eridTab.leadTc.firstName}" />
+                                        </p:column>
+
+                                    </p:dataTable>
+                                </h:panelGrid>
+                            </p:tab>
+                            <!-- Tab for Workers-->
+                            <p:tab title="WORKERS" >
+                                <p:growl  sticky="false" life="5000"  showDetail="true" id="workersGrowl"/>
+                                <h:panelGrid columns="1">
+                                    <!-- Panel with Buttons-->
+                                    <p:panel>
+                                        <p:commandButton id="createWorkerButton" value="Create" action="#{workerBean.createRecord()}" />
+                                        <p:commandButton id="editWorkerButton" value="Edit" icon="ui-icon-pencil" />
+                                        <p:commandButton id="showDialogWorkerButton" value="Delete" onclick="confirmWorker.show()" 
+                                                         type="button"/>
+                                    </p:panel>
+
+                                    <!-- Confirm dialog for deleting Worker-->
+                                    <p:confirmDialog id="confirmDialogWorker"  header="Удаление записи" severity="alert" 
+                                                     message="Are you sure you want to delete the selected Worker ?" widgetVar="confirmWorker">
+
+                                        <p:commandButton id="confirmWorker" value="Yes" update="workersGrowl, workers" 
+                                                         oncomplete="confirmWorker.hide()" actionListener="#{workerBean.deleteRecord()}"/>
+                                        <p:commandButton id="declineWorker" value="No" onclick="confirmWorker.hide()" type="button"/>
+
+                                    </p:confirmDialog>
+
+                                    <!-- the table for WORKERs From DateBase-->
+                                    <p:dataTable id="workers" var="workertab" value="#{workerBean.workers}" rowKey="#{workertab.email}"
+                                                 selection="#{workerBean.worker}" selectionMode="single">
+
+                                        <p:column id="firstNameWorkerHeader" sortBy="#{workertab.firstName}"
+                                                  headerText="First Name">#{workertab.firstName}
+                                        </p:column>
+
+                                        <p:column id="lastNameWorkerHeader" sortBy="#{workertab.lastName}" 
+                                                  headerText="Last Name">#{workertab.lastName}
+                                        </p:column>
+
+                                        <p:column id="positionWorkerHeader" sortBy="#{workertab.position}"
+                                                  headerText="Position">#{workertab.position}
+                                        </p:column>
+
+                                        <p:column id="departmentWorkerHeader" sortBy="#{workertab.department}"
+                                                  headerText="Department">#{workertab.department}
+                                        </p:column>
+
+                                        <p:column id="emailWorkerHeader" sortBy="#{workertab.department}"
+                                                  headerText="E-MAIL">#{workertab.email}
+                                        </p:column>
+
+                                        <p:column id="phoneWorkerHeader" sortBy="#{workertab.phoneNumber}"
+                                                  headerText="Phone">#{workertab.phoneNumber}
+                                        </p:column>
+
+                                    </p:dataTable>
+                                </h:panelGrid>
+                            </p:tab>
+
+                            <!-- Tab for Partners-->
+                            <p:tab title="PARTNERS">
+                                <p:growl  sticky="false" life="5000"  showDetail="true" id="partnersGrowl"/>
+                                <h:panelGrid columns="1">
+                                    <!-- Panel with Buttons-->
+                                    <p:panel>
+                                        <p:commandButton value="Create" action="#{partnerBean.createRecord()}"/>
+                                        <p:commandButton id="editPartnerButton" value="Edit" />
+                                        <p:commandButton id="ShowDialogPartnerButton" value="Delete" onclick="confirmPartner.show()" 
+                                                         type="button"/>
+                                    </p:panel>
+                                    <!-- Confirm dialog for deleting Worker-->
+                                    <p:confirmDialog id="confirmDialogPartner"  header="Удаление записи" severity="alert" 
+                                                     message="Вы действительно хотите удалить партнера ??"
+                                                     widgetVar="confirmPartner">
+                                        <p:commandButton id="confirmPartner" value="Yes" update="partnersGrowl, partners" 
+                                                         oncomplete="confirmPartner.hide()" actionListener="#{partnerBean.deleteRecord()}"/>
+                                        <p:commandButton id="declinePartner" value="No" onclick="confirmPartner.hide()" type="button"/>
+                                    </p:confirmDialog>
+
+                                    <!-- the table for PARTNERSs From DateBase-->
+                                    <p:dataTable id="partners" var="partnertab" value="#{partnerBean.partners}" 
+                                                 rowKey="#{partnertab.email}" selection="#{partnerBean.partner}" selectionMode="single">
+
+                                        <p:column id="firstNamePartnerHeader" sortBy="#{partnertab.firstName}">
+                                            <f:facet name="header">First Name</f:facet>
+                                            <h:outputText value="#{partnertab.firstName}"/>
+                                        </p:column>
+
+                                        <p:column id="lastNamePartnerHeader" sortBy="#{partnertab.lastName}">
+                                            <f:facet name="header">Last Name</f:facet>
+                                            <h:outputText value="#{partnertab.lastName}"/>
+                                        </p:column>
+
+                                        <p:column id="positionPartnerHeader" sortBy="#{partnertab.position}">
+                                            <f:facet name="header">Position</f:facet>
+                                            <h:outputText value="#{partnertab.position}"/>
+                                        </p:column>
+
+                                        <p:column id="companyPartnerHeader" sortBy="#{partnertab.company}">
+                                            <f:facet name="header">Company</f:facet>
+                                            <h:outputText value="#{partnertab.company}"/>
+                                        </p:column>
+
+                                        <p:column id="emailPartnerHeader" sortBy="#{partnertab.email}">
+                                            <f:facet name="header">E-MAIL</f:facet>
+                                            <h:outputText value="#{partnertab.email}"/>
+                                        </p:column>
+
+                                        <p:column id="phonePartnerHeader" sortBy="#{partnertab.phoneNumber}">
+                                            <f:facet name="header">Phone</f:facet>
+                                            <h:outputText value="#{partnertab.phoneNumber}"/>
+                                        </p:column>
+                                    </p:dataTable>
+                                </h:panelGrid>
+                            </p:tab>
+
+                            <!-- Tab for LEADTC-->
+                            <p:tab title="LEADTC">
+                                <p:growl  sticky="false" life="5000"  showDetail="true" id="leadTcGrowl"/>
+                                <h:panelGrid columns="1">
+                                    <!-- Panel with Buttons-->
+                                    <p:panel>
+                                        <p:commandButton value="Create" action="#{leadtcBean.createRecord()}"/>
+                                        <p:commandButton id="editLeadTcButton" value="Edit" />
+                                        <p:commandButton id="ShowDialogLeadTcButton" value="Delete" onclick="confirmLeadTc.show()" 
+                                                         type="button"/>
+                                    </p:panel>
+                                    <!-- Confirm dialog for deleting LeadTc-->
+                                    <p:confirmDialog id="confirmDialogLeadTc"  header="Удаление записи" severity="alert" 
+                                                     message="Вы действительно хотите удалить Технического консультанта ??"
+                                                     widgetVar="confirmLeadTc">
+                                        <p:commandButton id="confirmLeadTc" value="Yes" update="leadTcGrowl, LeadTcList" 
+                                                         oncomplete="confirmLeadTc.hide()" actionListener="#{leadtcBean.deleteRecord()}"/>
+                                        <p:commandButton id="declineLeadTc" value="No" onclick="confirmLeadTc.hide()" type="button"/>
+                                    </p:confirmDialog>
+                                    <!-- the table for LeadTc's From DateBase-->
+                                    <p:dataTable id="LeadTcList" var="leadtctab" value="#{leadtcBean.leadTcList}" 
+                                                 rowKey="#{leadtctab.email}" selection="#{leadtcBean.leadTc}" selectionMode="single">
+
+                                        <p:column id="firstNameLeadTcHeader" sortBy="#{leadtctab.firstName}">
+                                            <f:facet name="header">First Name</f:facet>
+                                            <h:outputText value="#{leadtctab.firstName}"/>
+                                        </p:column>
+
+                                        <p:column id="lastNameLeadTcHeader" sortBy="#{leadtctab.lastName}" > 
+                                            <f:facet name="header">Last Name</f:facet>
+                                            <h:outputText value="#{leadtctab.lastName}"/>
+                                        </p:column>
+
+                                        <p:column id="positionLeadTcHeader" sortBy="#{leadtctab.position}">
+                                            <f:facet name="header">Position</f:facet>
+                                            <h:outputText value="#{leadtctab.position}"/>
+                                        </p:column>
+
+                                        <p:column id="emailLeadTcHeader" sortBy="#{leadtctab.email}">
+                                            <f:facet name="header">E-MAIL</f:facet>
+                                            <h:outputText value="#{leadtctab.email}"/>
+                                        </p:column>
+
+                                        <p:column id="phoneHeader" sortBy="#{leadtctab.phoneNumber}">
+                                            <f:facet name="header">Phone</f:facet>
+                                            <h:outputText value="#{leadtctab.phoneNumber}"/>
+                                        </p:column>
+                                    </p:dataTable>
+                                </h:panelGrid>
+                            </p:tab>
+
+                        </p:tabView>
+                    </h:panelGrid>
+                </h:form>
+
+            </ui:define>
+        </ui:composition>
+    </h:body>
+</html>
+

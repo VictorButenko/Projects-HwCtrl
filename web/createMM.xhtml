@@ -1,0 +1,70 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html">
+
+    <body>
+
+        <ui:composition template="./maintemplate.xhtml">
+
+            <ui:define name="top">
+                <h2>Create a new Management Module</h2>
+            </ui:define>
+
+            <ui:define name="content">
+                <h:form id="createMMPageId">
+                    <!-- Notification Panel-->
+                    <p:growl id = "newServerGrowl" sticky="false" life="5000"  showDetail="true"/>
+
+                    <p:panel header="New Management Module">
+                        <h:panelGrid columns="2" columnClasses="label, value" styleClass="grid" >
+                            
+                            <h:outputText value="User Name"/>
+                            <p:inputText id="userNameId" value="#{mMBean.mm.username}" required="true"
+                                         requiredMessage="UserName is required!" maxlength="15"
+                                         validatorMessage="Please enter 1-15 characters" style="width:160px"/>
+
+                            <h:outputText value="Password"/>
+                            <p:password id="password" required="true" requiredMessage="Password is required!"
+                                        value="#{mMBean.mm.password}" style="width:160px"/>
+
+                            <h:outputText value="Protocol"/>
+                            <p:selectOneMenu id="protocolId" value="#{mMBean.mm.protocol}" style="width:164px" 
+                                             required="true" requiredMessage="Protocol is required!"> 
+                                <f:selectItem itemLabel="Select One" itemValue="" noSelectionOption="true"/>
+                                <f:selectItems value="#{mMBean.protocols}" var="protocol" 
+                                               itemLabel="#{protocol}" itemValue="#{protocol}"/>
+                            </p:selectOneMenu>
+
+                            <h:outputText value="Type of MM"/>
+                            <p:selectOneMenu id="typeMmIp" value="#{mMBean.mm.typeMm}" style="width:164px"
+                                             required="true" requiredMessage="Type is required!">
+                                <f:selectItem itemLabel="Select One" itemValue="" noSelectionOption="true"/>
+                                <f:selectItems value="#{mMBean.typesMm}" var="typeMm"
+                                               itemLabel="#{typeMm}" itemValue="#{typeMm}"/>
+                            </p:selectOneMenu>
+
+                            <h:outputText value="IP address"/>
+                            <p:inputText id="ipId" value="#{mMBean.mm.ipaddr}" required="true"
+                                         requiredMessage="Ipaddress is required !"
+                                         validatorMessage="Enter a correct IP !!" style="width:160px"/>
+                            
+
+                            <f:facet name="footer">  
+                                <p:commandButton  value="Save"   ajax="false" icon="ui-icon-disk"
+                                                  action="#{mMBean.saveRecord()}" />  
+                            </f:facet>
+
+                        </h:panelGrid>
+                    </p:panel>
+                </h:form>
+
+                
+            </ui:define>
+        </ui:composition>
+
+    </body>
+</html>

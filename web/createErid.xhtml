@@ -1,0 +1,113 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html">
+    
+    
+   <body>
+        <ui:composition template="./maintemplate.xhtml">
+            <ui:define name="top">
+                <h2>Create a new Project </h2>
+            </ui:define>
+
+            <ui:define name="content">
+                <h:form >
+                    <p:growl  sticky="false" life="5000"  showDetail="true"/>
+                         <p:panel header="New Project">
+                             <!-- We need spacers for Buttons below-->
+                             <h:panelGrid columns="3" columnClasses="label, value" styleClass="grid" >
+                             
+                                 <h:outputText value="ERID"/>
+                                 <p:inputText id="ERID" value="#{eridBean.erid.erid}" required="true"
+                                              requiredMessage="Erid is required!" maxlength="6"
+                                              converterMessage="Please enter digits only."
+                                              validatorMessage="Please enter 1-6 digits.">
+                                 </p:inputText>
+                                 <p:spacer/> 
+                                
+                                 <h:outputText value="Code Name"/>
+                                 <p:inputText id ="CodeName" value="#{eridBean.erid.codeName}"
+                                              requiredMessage="Code Name is required!"  required="true"
+                                              validatorMessage="Letters or digits for CodeName [3-20]" />
+                                 <p:spacer/>
+                                 
+                                 <h:outputText value="Description"/>
+                                 <p:inputText id ="Description" value="#{eridBean.erid.description}"
+                                               requiredMessage="Description is required" required="true"/>
+                                 <p:spacer/>
+                                 
+                                 <h:outputText value="Status"/>
+                                 <p:inputText id="status" value="#{eridBean.erid.status}"
+                                              requiredMessage="Status is required" required="true"/>
+                                 <p:spacer/>
+                                 
+                                 <h:outputText value="StartPlan" />
+                                 <p:calendar value="#{eridBean.erid.startPlannedDate}" showOn="button" 
+                                             pattern="yyyy-MM-dd" converterMessage=" Date Format Should be: 'yyyy-MM-dd'" />
+                                 <p:spacer/>
+                                 
+                                 <h:outputText value="FinishPlan" />
+                                 <p:calendar value="#{eridBean.erid.finishPlannedDate}" showOn="button"
+                                             pattern="yyyy-MM-dd" converterMessage=" Date Format Should be: 'yyyy-MM-dd'"/>
+                                 <p:spacer/> 
+                                 
+                                 <h:outputText value="StartFact" />
+                                  <p:calendar value="#{eridBean.erid.startFactDate}" showOn="button"
+                                              pattern="yyyy-MM-dd" converterMessage=" Date Format Should be: 'yyyy-MM-dd'"/>
+                                 <p:spacer/>
+                                  
+                                 <h:outputText value="FinishFact" />
+                                 <p:calendar value="#{eridBean.erid.finishFactDate}" showOn="button" 
+                                              pattern="yyyy-MM-dd" converterMessage=" Date Format Should be: 'yyyy-MM-dd'"/>
+                                 <p:spacer/>       
+                                  
+                                  <h:outputText value ="Worker" />   
+                                  <p:selectOneMenu value="#{eridBean.erid.worker}" effect="fade" id="selectWorker" 
+                                                   converter="workerConverter" style="width:190px">
+                                      <f:selectItem itemLabel="Select" itemValue=""/>
+                                      <f:selectItems value="#{workerBean.workers}" var="anWorker" 
+                                                     itemLabel="#{anWorker.firstName} #{anWorker.lastName}" itemValue="#{anWorker}"/>
+                                  </p:selectOneMenu>
+                                   <h:outputLink value="createWorker.xhtml">
+                                       <h:outputText value="New"/>
+                                   </h:outputLink>
+                                  
+                                  
+                                  <h:outputText value ="Partner" />
+                                  <p:selectOneMenu value="#{eridBean.erid.partner}" effect="puff"  id="selectPartner" 
+                                                   converter="partnerConverter" style="width:190px">
+                                      <f:selectItem itemLabel="Select" itemValue=""/>
+                                      <f:selectItems value="#{partnerBean.partners}" var="partnerItem" 
+                                                     itemLabel="#{partnerItem.firstName} #{partnerItem.lastName}" itemValue="#{partnerItem}"/>
+                                  </p:selectOneMenu>
+                                  <h:outputLink value="createPartner.xhtml">
+                                       <h:outputText value="New"/>
+                                   </h:outputLink>
+                                  
+                                  <h:outputText value ="LeadTc" />
+                                  <p:selectOneMenu value="#{eridBean.erid.leadTc}" effect="bounce" id="selectLeadTc" 
+                                                   converter="leadTcConverter" style="width:190px">
+                                      <f:selectItem itemLabel="Select" itemValue=""/>
+                                      <f:selectItems value="#{leadtcBean.leadTcList}" var="leadTcItem" 
+                                                     itemLabel="#{leadTcItem.firstName} #{leadTcItem.lastName}" itemValue="#{leadTcItem}"/>
+                                  </p:selectOneMenu>
+                                  <h:outputLink value="createLeadTc.xhtml">
+                                       <h:outputText value="New"/>
+                                   </h:outputLink>
+                                   
+                                  
+                                 <f:facet name="footer">  
+                                     <p:commandButton  value="Save" action="#{eridBean.saveRecord()}"  ajax="false" icon="ui-icon-disk" />  
+                                 </f:facet>  
+                             </h:panelGrid>
+                         </p:panel>
+                </h:form>
+            </ui:define>
+        </ui:composition>
+
+    </body>
+</html>
+

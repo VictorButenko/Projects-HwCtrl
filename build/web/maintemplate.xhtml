@@ -1,0 +1,34 @@
+<?xml version='1.0' encoding='UTF-8' ?> 
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:h="http://java.sun.com/jsf/html">
+
+    <h:head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <h:outputStylesheet library="css" name="default.css"/>
+        <h:outputStylesheet library="css" name="cssLayout.css"/>
+        <title>Existing Projects</title>
+    </h:head>
+
+    <h:body >
+        <h:form>
+
+        <div id="top" class="top">
+            <ui:insert name="top"><h2>Existing Projects</h2></ui:insert>
+            <!-- It'w the map of the site -->
+            <p:breadCrumb>
+                <p:menuitem value="Inex" url="index.xhtml" />
+                <p:menuitem value="Projects" url="main.xhtml" />
+                <p:menuitem value="Infrastructure" url="infrastructure.xhtml"/>
+            </p:breadCrumb>
+        </div>
+
+        <div id ="content" class="center_content">
+            <ui:insert name="content">Content</ui:insert>
+        </div>
+        </h:form>
+    </h:body>
+
+</html>
