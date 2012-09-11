@@ -12,8 +12,6 @@ import javax.persistence.*;
  * Rack Power Server
  * Implements <code>PhysicalRackServerInterface</code> 
  *
- * @author ---GPL--- ---GPL---
- * @author You
  */
 @Entity
 @Table(name = "RACKP")

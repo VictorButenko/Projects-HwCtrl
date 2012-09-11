@@ -16,12 +16,10 @@ import com.company.system.hw.mapping.PhysicalProperties;
  * <b>Power System</b>:
  *    <code>HMC</code>;
  *    <code>RackP</code>;
+ *    <code>VIOS</code>;
  * <b> System Storage</b>:
  *    <code>SSD</code>;
  *    <code>SwitchStorage</code>.
- * 
- * @author ---GPL--- ---GPL---
- * @author You
  */
 public interface PhysicalRackServerInterface {
     

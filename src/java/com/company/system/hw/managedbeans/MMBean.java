@@ -94,5 +94,12 @@ public class MMBean implements Serializable {
         return buttonListener.saveRecord(
                 facesContext, ejb, mm, GoToPage.forwardMM);
     }
+    
+     /**
+     * The method for redirecting to the page for creating the new Server
+     */
+    public String createRecord() {
+        return GoToPage.createMM;
+    }
 
 }

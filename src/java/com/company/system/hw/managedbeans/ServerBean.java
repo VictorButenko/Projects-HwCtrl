@@ -1,18 +1,11 @@
 package com.company.system.hw.managedbeans;
 
 import com.company.system.hw.facade.AbstractServerFacade;
-import com.company.system.hw.facade.BladeCenterFacade;
-import com.company.system.hw.facade.HMCFacade;
 import com.company.system.hw.facade.MMFacade;
-import com.company.system.hw.facade.RackPFacade;
-import com.company.system.hw.facade.RackXFacade;
-import com.company.system.hw.facade.SSDFacade;
-import com.company.system.hw.facade.SwitchStorageFacade;
 import com.company.system.hw.mapping.MM;
 import com.company.system.hw.mapping.servers.AbstractServer;
 import com.company.system.hw.mapping.servers.PhysicalRackServerInterface;
 import com.company.system.other.GoToPage;
-import com.company.system.projects.facade.AbstractFacade;
 import com.company.system.projects.managedbeans.ButtonsListenersInterface;
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -27,7 +20,6 @@ import javax.faces.context.FacesContext;
  * Managed Bean for JSF. Entity is enjected there by CDI. Class saves MM and a
  * concrete type of the servers depends on MM.type (AMM->BC, etc..)
  *
- * @author ---GPL--- ---GPL---
  */
 @ManagedBean(name = "serverBean")
 @RequestScoped
@@ -87,15 +79,6 @@ public class ServerBean implements Serializable {
     //Inject AbstractEjb 
     @EJB private AbstractServerFacade abstrEjb;
     
-    // Inject all necessary Session Beans
-    @EJB private BladeCenterFacade   bcEjb;
-    @EJB private RackXFacade         rackXEjb;
-    @EJB private HMCFacade           hmcEjb;
-    @EJB private RackPFacade         rackPEjb;
-    @EJB private SSDFacade           ssdEjb;
-    @EJB private SwitchStorageFacade switchStorageEjb;
-   
-    
     private AbstractServer server; //PhysicalRackServer(concreteness depends on MM.type)
     //The list of the servers
     private List<? extends AbstractServer> physicalServers;
@@ -149,49 +132,4 @@ public class ServerBean implements Serializable {
     }
     
     //---------END PART OF THE SERVERS -------------------------------------------------
-    
-    
-
-    /**
-     * The method for redirecting to the page for creating the new Server
-     */
-    public String createRecord() {
-        return GoToPage.createMM;
-    }
-
-    public String saveRecord() {
-        //Saving MM
-        mmButtonListener.saveRecord(facesContext, MmEjb, mm, GoToPage.forwardMM);
-        //Type Determination of the server
-        if(isType("AMM")) {
-            saveServer(bcEjb);
-        } else if (isType("IMM")) {
-            saveServer(rackXEjb);
-        } else if (isType("HMC")) {
-            saveServer(hmcEjb);
-        } else if (isType("SMC")) {
-            saveServer(ssdEjb);
-        } else if (isType("VIOS")) {
-            saveServer(rackPEjb); 
-        } else if (isType("BROCADE")) {
-            saveServer(switchStorageEjb);
-        } //TODO: other situations !!! 
-        
-        return GoToPage.forwardMM;
-    }
-    
-    // Additional method for saving a server
-    private String saveServer(AbstractFacade ejb) {
-        return serverButtonListener.saveRecord(facesContext, ejb,
-                    server, GoToPage.forwardMM);
-    }
-    // Additional method for checking is the server 'type'
-    private boolean isType(String type) {
-        if (mm.getTypeMm().equalsIgnoreCase(type)) {
-            return true;
-        }
-        return false;
-    }
-
-    
 }

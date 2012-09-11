@@ -3,6 +3,7 @@ package com.company.system.hw.mapping;
 
 import com.company.system.hw.mapping.servers.power.HMC;
 import com.company.system.hw.mapping.servers.power.RackP;
+import com.company.system.hw.mapping.servers.power.VIOS;
 import com.company.system.hw.mapping.servers.storage.SSD;
 import com.company.system.hw.mapping.servers.storage.SwitchStorage;
 import com.company.system.hw.mapping.servers.sysX.BladeCenter;
@@ -77,6 +78,7 @@ public  class MM extends AbstractEntity {
     @OneToOne(mappedBy = "mgmtIP") private RackP rackP;
     @OneToOne(mappedBy = "mgmtIP") private SSD ssd;
     @OneToOne(mappedBy = "mgmtIP") private SwitchStorage switchStorage;
+    @OneToOne(mappedBy = "mgmtIP") private VIOS vios;
     
     
     //Constructors - Every entity has to have a default constructor
@@ -200,6 +202,16 @@ public  class MM extends AbstractEntity {
     public void setSwitchStorage(SwitchStorage switchStorage) {
         this.switchStorage = switchStorage;
     }
+
+    public VIOS getVios() {
+        return vios;
+    }
+
+    public void setVios(VIOS vios) {
+        this.vios = vios;
+    }
+    
+    
 
        
     //---------------------My Code -------------------UP---------------------------------------
