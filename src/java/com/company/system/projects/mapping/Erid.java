@@ -74,17 +74,17 @@ public class Erid extends AbstractEntity {
     
     /** The foreign key to the table 'Partner': id-->id */
     @JoinColumn(name = "PARTNER", referencedColumnName = "ID")
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.PERSIST)
     private Partner partner;
     
      /** The foreign key to the table 'Worker': id-->id */
     @JoinColumn(name = "WORKER", referencedColumnName = "ID")
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.PERSIST)
     private Worker worker;
     
      /** The foreign key to the table 'LeadTc': id-->id */
     @JoinColumn(name = "LEADTC", referencedColumnName = "ID")
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.PERSIST)
     private LeadTc leadTc;
     //=================================================================================================================
     
