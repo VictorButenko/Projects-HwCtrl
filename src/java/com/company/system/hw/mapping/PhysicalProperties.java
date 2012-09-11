@@ -10,8 +10,6 @@ import javax.persistence.Embeddable;
  * about physical Rack Servers. The fields of this class will be saved in 
  * the appropriate Entities like fields.
  * 
- * @author ---GPL--- ---GPL---
- * @author You
  */
 @Embeddable
 public class PhysicalProperties implements Serializable   {
@@ -30,7 +28,11 @@ public class PhysicalProperties implements Serializable   {
     private int startUnit;
     @Column(name = "ENDUNIT", nullable = false)
     private int endUnit;
-
+    
+    /** The serial number of the server. Should be unique*/
+    @Column(name = "SERIAL", nullable = false, unique = true)
+    private String serial;
+    
     
     // Void constructor is necessary for entities
     public PhysicalProperties() {
@@ -38,12 +40,13 @@ public class PhysicalProperties implements Serializable   {
 
     //Constructor
     public PhysicalProperties(String room, String rack, 
-            int startUnit, int endUnit) {
+            int startUnit, int endUnit, String serial) {
         super();
         this.room = room;
         this.rack = rack;
         this.startUnit = startUnit;
         this.endUnit = endUnit;
+        this.serial  = serial;
     }
     
     //Getters and Setters
@@ -79,4 +82,13 @@ public class PhysicalProperties implements Serializable   {
         this.startUnit = startUnit;
     }
 
+    public String getSerial() {
+        return serial;
+    }
+
+    public void setSerial(String serial) {
+        this.serial = serial;
+    }
+
+    
 }

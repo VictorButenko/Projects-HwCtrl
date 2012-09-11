@@ -35,6 +35,7 @@ import javax.persistence.*;
 public abstract class AbstractServer extends AbstractEntity {
     
     private static final long serialVersionUID = 1L;
+    
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
@@ -44,18 +45,15 @@ public abstract class AbstractServer extends AbstractEntity {
     /** The name of the server*/
     @Column(name = "NAME", nullable = false)
     private String name;
-    /** The serial number of the server. Should be unique*/
-    @Column(name = "SERIAL", nullable = false, unique = true)
-    private String serial;
+    
     
     //Constructors - Every entity has to have a default constructor
     public AbstractServer() { }
 
-    public AbstractServer(Integer id, String name, String serial) {
+    public AbstractServer(Integer id, String name) {
         super();
         this.id = id;
         this.name = name;
-        this.serial = serial;
     }
 
     //Getters/Setters
@@ -65,12 +63,6 @@ public abstract class AbstractServer extends AbstractEntity {
     }
     public void setName(String name) {
         this.name = name;
-    }
-    public String getSerial() {
-        return serial;
-    }
-    public void setSerial(String serial) {
-        this.serial = serial;
     }
     
     // My part of the code ============================== UP ===================================

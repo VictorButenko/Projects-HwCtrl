@@ -112,9 +112,11 @@ public  class MM extends AbstractEntity {
     public void setTypeMm(String typeMm) {this.typeMm = TypeMM.valueOf(typeMm);}
     
 
+    @Override
     public Integer getId() {
         return id;
     }
+    @Override
     public void setId(Integer id) {
         this.id = id;
     }

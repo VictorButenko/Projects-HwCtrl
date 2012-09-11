@@ -24,9 +24,7 @@ public class SANSwitch extends StorageSystem{
         this.mgmtip = mgmtip;
     }
 
-    public void setSerial(String serial) {
-        this.serial = serial;
-    }
+    
 
     public void setStartunit(int startunit) {
         this.startunit = startunit;

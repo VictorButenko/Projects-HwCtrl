@@ -49,12 +49,6 @@ public interface PhysicalRackServerInterface {
     public void setName(String name);
     public String getName();
     
-    /**
-     * Getter/Setter for ServerSerial paramater
-     * 
-     * @param serial 
-     */
-    public void setSerial(String serial);
-    public String getSerial();
+
     
 }
